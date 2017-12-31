@@ -891,7 +891,7 @@ a:active {
 
 #header {
   padding: 50px 20px 40px 20px;
-  background: url(/images/header.jpg?93c7d5883f5338ee5bbbf4143a8fa375) #33495d no-repeat;
+  background:  #33495d no-repeat;
   position: fixed;
   width: 300px;
   height: 100%;
@@ -1081,7 +1081,7 @@ a:active {
 @media only screen and (max-width: 500px) {
   #header {
     position: static;
-    background: url(/images/header.jpg?93c7d5883f5338ee5bbbf4143a8fa375) no-repeat fixed;
+    /**background: url(/images/header.jpg?93c7d5883f5338ee5bbbf4143a8fa375) no-repeat fixed;**/
     transition: all 1s;
     background-size: auto 100%;
     width: 100%;

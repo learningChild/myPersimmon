@@ -33,7 +33,7 @@
         <div class="header-content">
             <hgroup>
                 <div class="avatar">
-                    <a href="{{ url('/') }}"><img src="{{ cdn('avatar/persimmon.jpg') }}" alt=""></a>
+                    <a href="{{ url('/') }}"><img src="{{ url('/') }}/images/head.jpeg" alt=""></a>
                 </div>
                 <h1><a href="{{ url('/') }}">{{ bloginfo('site_name') }}</a></h1>
                 <div class="description">
@@ -44,27 +44,27 @@
             <nav class="nav-bar">
                 <div class="menu-side-menu-container">
                     <ul id="menu-side-menu" class="menu">
-                        <li class="menu-item"><a href="{{ url('/') }}">首页</a></li>
-                        @include('app.widgets.navigation')
-                        @yield('nav')
+                        {{--<li class="menu-item"><a href="{{ url('/') }}">首页</a></li>--}}
+                        {{--@include('app.widgets.navigation')--}}
+                        {{--@yield('nav')--}}
                     </ul>
                 </div>
             </nav>
             <div class="clear"></div>
-            <div class="social-icons" id="my-social">
-                <a class="fa fa-weibo" href="{{ bloginfo('weibo') }}" target="_blank" rel="nofollow">
-                    <span class="hidden">Weibo</span>
-                </a>
-                <a class="fa fa-github" href="{{ bloginfo('github') }}" target="_blank" rel="nofollow">
-                    <span class="hidden">GitHub</span>
-                </a>
-                <a class="fa fa-google-plus" href="{{ bloginfo('google_plus') }}" target="_blank" rel="nofollow">
-                    <span class="hidden">Google+</span>
-                </a>
-                <a class="fa fa-rss" href="https://cong5.net/feed/" target="_blank">
-                    <span class="hidden">feed</span>
-                </a>
-            </div>
+            {{--<div class="social-icons" id="my-social">--}}
+                {{--<a class="fa fa-weibo" href="{{ bloginfo('weibo') }}" target="_blank" rel="nofollow">--}}
+                    {{--<span class="hidden">Weibo</span>--}}
+                {{--</a>--}}
+                {{--<a class="fa fa-github" href="{{ bloginfo('github') }}" target="_blank" rel="nofollow">--}}
+                    {{--<span class="hidden">GitHub</span>--}}
+                {{--</a>--}}
+                {{--<a class="fa fa-google-plus" href="{{ bloginfo('google_plus') }}" target="_blank" rel="nofollow">--}}
+                    {{--<span class="hidden">Google+</span>--}}
+                {{--</a>--}}
+                {{--<a class="fa fa-rss" href="https://cong5.net/feed/" target="_blank">--}}
+                    {{--<span class="hidden">feed</span>--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
     <!--article content-->
@@ -76,9 +76,8 @@
         <div id="footer">
             <div class="footer-content">
                 <div class="footer-border">
-                    <p><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">{{ bloginfo('icp') }}</a></p>
-                    <p>本站点采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="nofollow">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
-                    <p>Coder by <a href="{{ url('/') }}">@Mr柿子</a>，您可以在 GitHub <i class="fa fa-github"></i> 找到<a href="https://github.com/Cong5/myPersimmon">本站源码</a> - CopyRight &copy; 2017</p>
+                    {{--<p><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">{{ bloginfo('icp') }}</a></p>--}}
+                    {{--<p><a href="https://github.com/Cong5/myPersimmon">源代码</a></p>--}}
                     @yield('footer')
                 </div>
             </div>
