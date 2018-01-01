@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Models\Links;
 use Persimmon\Interfaces\CreatorInterface;
@@ -23,13 +24,16 @@ class HomeController extends Controller implements CreatorInterface
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Posts::orderBy('id', 'desc')->paginate(15);
+        $posts = Posts::orderBy('id', 'desc');
+        if($key = trim($request->key)){
+            $posts = $posts->where('title', 'like', '%'.$key.'%');
+        }
+        $posts = $posts->paginate(15);
 
         return view('app.home')->with(compact('posts'));
     }
