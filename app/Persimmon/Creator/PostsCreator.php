@@ -29,7 +29,7 @@ class PostsCreator
         $posts = new Posts;
         $posts = $this->transform($posts, $request);
         if (!$posts) {
-            $observer->creatorFail($this->_error);
+            return $observer->creatorFail($this->_error);
         }
         Tags::createPostsTags($posts->id, $request->tags);
 
@@ -41,18 +41,22 @@ class PostsCreator
 
     public function update(CreatorInterface $observer, Request $request)
     {
-        if (empty($request->id)) {
-            $observer->creatorFail('ID 不能为空');
+        $id = $request->id;
+        $flag = $request->flag;
+        if (empty($id) || empty($flag)) {
+            return $observer->creatorFail('id 或者 flag, 不能为空');
         }
-        $posts = Posts::firstOrCreate(['flag' => $request->flag]);
+        $posts = Posts::where(['flag' => $flag])->first();
+        if(!is_null($posts) && $posts->id != $id){
+            return $observer->creatorFail('flag exists');
+        }
+        $posts = Posts::find($id);
         Tags::createPostsTags($posts->id, $request->tags);
         $posts = $this->transform($posts, $request);
-
         if (!$posts) {
-            $observer->creatorFail('error');
+            return $observer->creatorFail('error');
         }
-
-        $observer->creatorSuccess($posts);
+        return $observer->creatorSuccess($posts);
     }
 
     public function transform(Posts $posts, Request $request)
