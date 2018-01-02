@@ -44,7 +44,7 @@ class HomeController extends Controller implements CreatorInterface
 
         !empty($post) ?: abort(404, '很抱歉，页面找不到了。');
 
-        Posts::increment('views', 1);
+        $post->increment('views', 1);
 
         return view('app.post')->with(compact('post'));
     }
