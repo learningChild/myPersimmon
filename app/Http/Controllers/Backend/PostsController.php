@@ -28,7 +28,7 @@ class PostsController extends Controller implements CreatorInterface
     public function index(Request $request)
     {
         $rows = intval($request->rows) > 0 ? $request->rows : 20;
-        $listData = Posts::OfCategory($request->category_id)->OfTitle($request->q)->paginate($rows);
+        $listData = Posts::OfCategory($request->category_id)->orderBy('id', 'desc')->OfTitle($request->q)->paginate($rows);
         $listData = $this->transform($listData);
         return response()->json($listData);
     }
