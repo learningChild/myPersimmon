@@ -60,7 +60,7 @@ class HomeController extends Controller implements CreatorInterface
 
         !empty($tags) ?: abort(404, '很抱歉，页面找不到了。');
 
-        $posts = $tags->posts()->paginate(15);
+        $posts = $tags->posts()->orderBy('id', 'desc')->paginate(15);
 
         return view('app.home')->with(compact('posts', 'tags'));
 
@@ -77,7 +77,7 @@ class HomeController extends Controller implements CreatorInterface
 
         !empty($category) ?: abort(404, '很抱歉，页面找不到了。');
 
-        $posts = $category->posts()->paginate(15);
+        $posts = $category->posts()->orderBy('id', 'desc')->paginate(15);
 
         return view('app.home')->with(compact('posts', 'category'));
     }

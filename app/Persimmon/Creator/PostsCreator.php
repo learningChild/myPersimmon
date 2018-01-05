@@ -10,6 +10,7 @@
 namespace Persimmon\Creator;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class PostsCreator
     public function create(CreatorInterface $observer, Request $request)
     {
         $posts = new Posts;
+        $posts->created_at = $posts->updated_at = Carbon::now('PRC');
         $posts = $this->transform($posts, $request);
         if (!$posts) {
             return $observer->creatorFail($this->_error);
