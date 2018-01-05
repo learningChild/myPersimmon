@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 
 if (!function_exists("current_is")) {
     /**
@@ -136,5 +137,35 @@ if (!function_exists("transferMonth")) {
         ];
         $zhMonth = explode(' ', $zhDate);
         return sprintf("%s %s %s", $month[$zhMonth[0]], $zhMonth[1], $zhMonth[2]);
+    }
+}
+
+
+
+if (!function_exists("toptags")) {
+    /**
+     * @return mixed
+     * @throws Exception
+     * 缓存高频标签
+     */
+    function toptags()
+    {
+        $result = cache('toptags');
+        if (empty($result)) {
+            cache()->forget('toptags');
+            $re = DB::select('select count(tags_id) as num ,tags_id from pit_posts_tags group by tags_id order by num desc limit 5');
+            $tagsid = '';
+            foreach(($re) as $val){
+                $tagsid .= $val->tags_id. ',';
+            }
+            if($tagsid = rtrim($tagsid, ',')){
+                $result = DB::select('select tags_name from pit_tags where id in ('. $tagsid. ')');
+                if($result){
+                    $expiresAt = \Carbon\Carbon::now('PRC')->addMinutes(1440*7);
+                    cache(['toptags' => $result], $expiresAt);
+                }
+            }
+        }
+        return $result;
     }
 }

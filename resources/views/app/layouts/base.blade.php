@@ -52,6 +52,10 @@
             </nav>
             <div class="clear"></div>
             {{--<div class="social-icons" id="my-social">--}}
+                {{--@foreach(toptags() as $tag)--}}
+                    {{--<i class="fa fa-tag"></i> <a href="{{ route('tags',[$tag->tags_name]) }}" rel="tag">{{ $tag->tags_name }}</a>--}}
+                {{--@endforeach--}}
+
                 {{--<a class="fa fa-weibo" href="{{ bloginfo('weibo') }}" target="_blank" rel="nofollow">--}}
                     {{--<span class="hidden">Weibo</span>--}}
                 {{--</a>--}}
