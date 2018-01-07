@@ -1,0 +1,3 @@
+# linux调度任务
+
+* * * * *  php /data/www/blog/artisan schedule:run
