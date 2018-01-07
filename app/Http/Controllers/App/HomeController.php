@@ -13,6 +13,7 @@ use Persimmon\Services\RssFeed;
 use Models\Categorys;
 use Models\Posts;
 use Models\Tags;
+use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller implements CreatorInterface
 {
@@ -34,7 +35,6 @@ class HomeController extends Controller implements CreatorInterface
             $posts = $posts->where('title', 'like', '%'.$key.'%');
         }
         $posts = $posts->paginate(15);
-
         return view('app.home')->with(compact('posts'));
     }
 
@@ -44,9 +44,10 @@ class HomeController extends Controller implements CreatorInterface
 
         !empty($post) ?: abort(404, '很抱歉，页面找不到了。');
 
-        $post->increment('views', 1);
-
-        return view('app.post')->with(compact('post'));
+        Redis::hincrby('viewsIncrement', $flag, 1);
+        $viewsNum = $post->views + intval(Redis::hget('viewsIncrement', $flag));
+        
+        return view('app.post')->with(compact('post', 'viewsNum'));
     }
 
     /**

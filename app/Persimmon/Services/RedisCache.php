@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Models\Options;
 use Models\Posts;
+use Illuminate\Support\Facades\Redis;
 
 class RedisCache {
 
@@ -65,6 +66,23 @@ class RedisCache {
         $post->tags;
         $post->user;
         cache([$key => $post], $this->expiresAt);
+    }
+
+    /**
+     * 更新浏览数量 redis hash类型记录增量
+     * 调度任务执行
+     */
+    public function updateViewsFromCache(){
+        $views = Redis::hgetall('viewsIncrement');
+        foreach ($views as $flag => $num){
+            $post = Posts::where('flag', $flag)->first();
+            if(!empty($post)){
+                $post->increment('views', $num);
+                Redis::hdel('viewsIncrement', $flag);
+                // 清除该文章缓存 目的重新载入views
+                cache()->forget(hash('sha256', $flag));
+            }
+        }
     }
 
 }

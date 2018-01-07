@@ -14,7 +14,7 @@
                     <time class="fa fa-calendar date" datetime="{{$post->created_at->format('c')}}"
                           itemprop="datePublished" pubdate=""> {{$post->created_at->format('d F , Y')}}
                     </time>
-                    <span class="views fa fa-eye" itemprop="views"> {{ $post->views}} views</span>
+                    <span class="views fa fa-eye" itemprop="views"> {{ $viewsNum }} views</span>
                 </div>
                 <div class="clear"></div>
             </header>
